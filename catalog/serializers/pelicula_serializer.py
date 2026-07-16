@@ -2,8 +2,8 @@ from rest_framework import serializers
 from catalog.models.pelicula import Pelicula
 from catalog.models.director import Director
 from catalog.models.vendedor import Vendedor
-from .director_serializer import DirectorSerializer
-from .vendedor_serializer import VendedorSerializer
+from catalog.serializers.director_serializer import DirectorSerializer  # <-- Corregido a importación absoluta
+from catalog.serializers.vendedor_serializer import VendedorSerializer  # <-- Corregido a importación absoluta
 
 class PeliculaSerializer(serializers.ModelSerializer):
     director_detail = DirectorSerializer(source='director', read_only=True)

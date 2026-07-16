@@ -1,3 +1,4 @@
-from .director import Director
-from .vendedor import Vendedor
-from .pelicula import Pelicula
+# catalog/models/__init__.py
+from catalog.models.director import Director
+from catalog.models.vendedor import Vendedor  
+from catalog.models.pelicula import Pelicula

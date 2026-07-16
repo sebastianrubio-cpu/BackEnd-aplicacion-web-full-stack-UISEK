@@ -1,10 +1,14 @@
+# catalog/models/vendedor.py
 from django.db import models
 
 class Vendedor(models.Model):
     TIPO_CHOICES = [
         ('DIGITAL', 'Digital'),
-        ('CINE', 'Cine'),
-        ('STREAMING', 'Streaming'),
+        ('MULTICINES', 'Multicines'),
+        ('YOUTUBE', 'YouTube'),
+        ('NETFLIX', 'Netflix'),
+        ('AMAZON', 'Amazon Prime Video'),
+        ('DISNEY', 'Disney+'),
         ('FISICO', 'Físico'),
     ]
 
