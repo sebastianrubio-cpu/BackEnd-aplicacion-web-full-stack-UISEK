@@ -12,15 +12,16 @@ class PeliculaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pelicula
         fields = [
-            'id', 
-            'nombre', 
-            'duracion', 
-            'fecha_lanzamiento', 
-            'director', 
-            'director_detail', 
-            'vendedores', 
-            'vendedores_detail',
-            'poster'
+            "id",
+            "nombre",
+            "duracion",
+            "fecha_lanzamiento",
+            "genero",
+            "director",
+            "director_detail",
+            "vendedores",
+            "vendedores_detail",
+            "poster",
         ]
         extra_kwargs = {
             'director': {'write_only': True},
