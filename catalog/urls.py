@@ -1,18 +1,17 @@
+# catalog/urls.py
 from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
-from catalog.views.director_view import DirectorViewSet
-from catalog.views.vendedor_view import VendedorViewSet
-from catalog.views.pelicula_view import PeliculaViewSet
+from catalog.views import pelicula_view, director_view, vendedor_view
 
-# Registramos las vistas en el Router
+# Inicialización del enrutador global para la app catalog
 router = DefaultRouter()
-router.register(r'directores', DirectorViewSet, basename='director')
-router.register(r'vendedores', VendedorViewSet, basename='vendedor')
-router.register(r'peliculas', PeliculaViewSet, basename='pelicula')
+
+# Registro de los ViewSets asociados a cada uno los 3 modelos
+router.register(r'peliculas', pelicula_view.PeliculaViewSet, basename='pelicula')
+router.register(r'directores', director_view.DirectorViewSet, basename='director')
+router.register(r'vendedores', vendedor_view.VendedorViewSet, basename='vendedor')
+
+# Los patrones de URL de la aplicación ahora dependen completamente del router
 urlpatterns = [
     path('', include(router.urls)),
 ]
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
