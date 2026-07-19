@@ -1,359 +1,580 @@
-# Examen Final - Aplicación Web Full-Stack UISEK
+# Backend — Aplicación Web Full-Stack UISEK
 
-<div align="center">
+API REST desarrollada con Django REST Framework para la gestión de un catálogo de películas, directores y vendedores.
 
-![Python](https://img.shields.io/badge/Python-3.x-blue?style=for-the-badge&logo=python)
-![Django](https://img.shields.io/badge/Django-REST-darkgreen?style=for-the-badge&logo=django)
-![React](https://img.shields.io/badge/React-18-61dafb?style=for-the-badge&logo=react)
-![License](https://img.shields.io/badge/License-Academic-orange?style=for-the-badge)
+El backend se encarga de:
 
-**Una aplicación web Full-Stack moderna con autenticación OAuth 2.0 y gestión de catálogos**
-
-</div>
+- gestionar la base de datos;
+- exponer los endpoints REST;
+- autenticar usuarios mediante OAuth 2.0;
+- almacenar pósteres y fotografías;
+- aplicar permisos a las operaciones CRUD;
+- comunicarse con el frontend desarrollado en React.
 
 ---
 
-## 1. Introducción del Proyecto
-Este proyecto consiste en el diseño, desarrollo e implementación de una aplicación web full-stack desacoplada destinada a la gestión y visualización de un catálogo de películas, directores y vendedores. El sistema integra un Backend robusto basado en el framework Django (Django REST Framework) que actúa como proveedor de datos y servidor de autenticación bajo el estándar OAuth 2.0, y un Frontend ágil e interactivo desarrollado en React mediante Vite. La comunicación entre ambas capas se realiza de manera segura mediante peticiones asíncronas HTTP/HTTPS protegidas por tokens de acceso Bearer.
+## Integrantes
 
-### Integrantes
-- Sebastian Andres Rubio Rivera
+- Alberto Sebastian Andrade Endara
+- Sebastián Andrés Rubio Rivera
 
-### Carrera
+## Universidad
+
+Universidad Internacional SEK — UISEK
+
+## Carrera
+
 Ingeniería en Informática
 
-### Universidad
-Universidad Internacional SEK (UISEK)
----
+## Asignatura
 
-## 2. Objetivos del Proyecto
-
-### Objetivo Académico
-- Demostrar la capacidad práctica e intelectual para diseñar una arquitectura de software distribuida y desacoplada, aplicando patrones de diseño de software correctos.
-- Implementar mecanismos rigurosos de seguridad y control de acceso utilizando el protocolo de autorización OAuth 2.0 a nivel de API REST.
-- Consolidar habilidades en el manejo de bases de datos relacionales, persistencia de archivos multimedia y control de políticas de intercambio de recursos de origen cruzado (CORS).
-
-### Expansión hacia un Modelo de Producción Profesional (Teoría de Escalabilidad)
-Para transformar este prototipo académico en una plataforma lista para el mercado con alta disponibilidad, se contemplan los siguientes ejes de expansión:
-
-
-1. **Desacoplamiento de Base de Datos y Almacenamiento:** Migrar el motor local SQLite a una base de datos relacional administrada de nivel empresarial (como PostgreSQL o Amazon RDS). Los archivos multimedia (pósteres y fotos) se trasladarían desde el disco local hacia un servicio de almacenamiento de objetos en la nube, como Amazon S3, distribuyéndolos mediante una red de entrega de contenido (CDN) como Cloudflare.
-
-2. **Contenerización y Orquestación:** Empaquetar de manera independiente las aplicaciones de Frontend y Backend utilizando contenedores Docker. Esto garantizaría que el sistema se ejecute bajo las mismas variables y dependencias exactas en cualquier infraestructura, permitiendo su orquestación automatizada en clústeres mediante Kubernetes.
-
-3. **Escalabilidad Horizontal e Infraestructura Serverless:** Desplegar el Backend detrás de un balanceador de carga (Nginx o AWS ALB) con auto-scaling para levantar instancias dinámicamente según la demanda. El Frontend de React se compilaría a archivos estáticos puros para ser servidos directamente desde infraestructuras Edge (como AWS Amplify, Vercel o Netlify), reduciendo la latencia de carga global a milisegundos.
-
-4. **Seguridad y CI/CD:** Implementar HTTPS mandatorio mediante certificados SSL/TLS administrados, resguardar las credenciales sensibles y llaves maestras en administradores de secretos (como AWS Secrets Manager) e integrar flujos de Integración y Despliegue Continuos (CI/CD) automatizados mediante GitHub Actions.
+Desarrollo Web
 
 ---
 
-
-## 🛠️ Tecnologías utilizadas
-
-### 🔙 Backend
-
-```
-┌─────────────────────────────────────┐
-│      Django REST Framework          │
-├─────────────────────────────────────┤
-│  • Django ORM                       │
-│  • OAuth 2.0 Integration            │
-│  • Serializers & Validators         │
-│  • Authentication & Permissions     │
-└─────────────────────────────────────┘
-         ↓
-    SQLite Database
-```
-
-### 🎨 Frontend
-
-```
-┌─────────────────────────────────────┐
-│        React + Vite                 │
-├─────────────────────────────────────┤
-│  • Material UI Components           │
-│  • Axios para HTTP Requests         │
-│  • State Management                 │
-│  • Responsive Design                │
-└─────────────────────────────────────┘
-```
-
-### 🔧 Herramientas
-
-- **Control de versiones**: Git & GitHub
-- **Testing de APIs**: Postman
-- **Editor**: VS Code (recomendado)
-
----
-
-## 📚 Características principales
-
-### 🔐 Autenticación
-
-- ✅ Inicio de sesión mediante **OAuth 2.0**
-- ✅ Protección de endpoints
-- ✅ Manejo seguro de tokens de acceso
-- ✅ Cierre de sesión
-
-### 📊 Gestión de datos (CRUD)
-
-- ✅ **Crear** registros
-- ✅ **Leer** información
-- ✅ **Actualizar** registros
-- ✅ **Eliminar** registros
-
-### 🌐 API REST
-
-```
-GET    /api/items/          → Listar todos los registros
-POST   /api/items/          → Crear nuevo registro
-GET    /api/items/{id}/     → Obtener un registro específico
-PUT    /api/items/{id}/     → Actualizar completo
-PATCH  /api/items/{id}/     → Actualización parcial
-DELETE /api/items/{id}/     → Eliminar registro
-```
-
----
-
-## 📂 Estructura del proyecto
-
-```
-examen-final-UISEK/
-│
-├── 📂backend/                  # Directorio raíz del Backend (Django)
-│   ├── 📂backend/              # Configuración global del proyecto de Django
-│   │   ├── settings.py       # Variables de entorno, APPS, Middlewares y seguridad
-│   │   ├── urls.py           # Enrutador principal del sistema (Admin, OAuth2)
-│   │   └── wsgi.py / asgi.py # Interfaces de pasarela para servidores web
-│   ├── 📂catalog/              # Aplicación local encargada del catálogo de películas
-│   │   ├── migrations/       # Historial de cambios y mutaciones de la base de datos
-│   │   ├── models/           # Definición de las entidades (Pelicula, Director, Vendedor)
-│   │   ├── serializers/      # Lógica de transformación de Modelos a JSON (y viceversa)
-│   │   ├── views/            # Lógica de control y ViewSets que procesan las peticiones
-│   │   ├── admin.py          # Registro de modelos en el panel de administración nativo
-│   │   └── urls.py           # Enrutamiento específico del API de catálogo
-│   ├── 📂media/                # Almacenamiento local de archivos multimedia (Pósteres/Fotos)
-│   ├── 📂manage.py             # Utilidad de línea de comandos para la gestión del Backend
-│   └── 📂requirements.txt      # Manifiesto de dependencias y librerías de Python
-│
-├── 📂frontend/                 # Directorio raíz del Frontend (React + Vite)
-│   ├── 📂public/               # Recursos estáticos globales abiertos (Favicon, SVGs)
-│   ├── 📂src/                  # Código fuente ejecutable de la interfaz
-│   │   ├── assets/           # Imágenes y hojas de estilo base
-│   │   ├── App.jsx           # Componente raíz y lógica principal de la aplicación
-│   │   └── main.jsx          # Punto de entrada de renderizado de React en el DOM
-│   ├── 📂index.html            # Lienzo HTML5 principal de la aplicación
-│   ├── 📂package.json          # Manifiesto de dependencias de Node.js y scripts de ejecución
-│   └── 📂vite.config.js        # Configuración del compilador y servidor de desarrollo Vite
-│
-└──readme.me                   #Archivo actual
-
-```
-
----
-
-## 🚀 Instalación rápida
-
-### 1️⃣ Clonar el repositorio
-
-```bash
-git clone https://github.com/sebastianrubio-cpu/examen-final.-aplicacion-web-full-stack-UISEK.git
-cd examen-final.-aplicacion-web-full-stack-UISEK
-```
-
-### 2️⃣ Configurar el Backend
-
-```bash
-# Navegar a la carpeta backend
-cd backend
-
-# Crear entorno virtual
-python -m venv venv
-
-# Activar entorno virtual
-venv\Scripts\activate
-
-# Instalar dependencias
-pip install -r requirements.txt
-
-# Ejecutar migraciones
-python manage.py migrate
-
-# Iniciar servidor Django
-python manage.py runserver
-```
-
-El backend estará disponible en `http://localhost:8000`
-
-### 3️⃣ Configurar el Frontend
-
-```bash
-# En otra terminal, navegar a frontend
-cd frontend
-
-# Instalar dependencias
-npm install
-
-# Iniciar servidor de desarrollo
-npm run dev
-```
-
-El frontend estará disponible en `http://localhost:5173`
-
----
-
-## 📬 Endpoints de la API
-
-### Autenticación
-
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| `POST` | `/api/auth/login/` | Iniciar sesión |
-| `POST` | `/api/auth/logout/` | Cerrar sesión |
-| `POST` | `/api/auth/token/refresh/` | Refrescar token |
-
-### Catálogo
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| `GET` | `/api/items/` | Listar todos | ✓ |
-| `POST` | `/api/items/` | Crear nuevo | ✓ |
-| `GET` | `/api/items/{id}/` | Obtener uno | ✓ |
-| `PUT` | `/api/items/{id}/` | Actualizar | ✓ |
-| `PATCH` | `/api/items/{id}/` | Actualizar parcial | ✓ |
-| `DELETE` | `/api/items/{id}/` | Eliminar | ✓ |
-
----
-
-## 🔐 Seguridad
-
-La aplicación implementa múltiples capas de seguridad:
-
-```
-🔒 OAuth 2.0 Authentication
-    ↓
-🔑 JWT Tokens (Access & Refresh)
-    ↓
-🛡️ CORS Configuration
-    ↓
-✅ HTTPS (en producción)
-    ↓
-🔐 Encrypted Passwords (bcrypt)
-```
-
-**⚠️ Nota**: Los endpoints protegidos requieren un Access Token válido en el header:
-
-```
-Authorization: Bearer {access_token}
-```
-
----
-
-## 🧪 Pruebas con Postman
-
-Se incluye una colección de Postman con:
-
-- ✅ Flujo completo de autenticación
-- ✅ CRUD completo
-- ✅ Variables de entorno preconfiguradas
-- ✅ Ejemplos de request y response
-- ✅ Endpoints protegidos
-
-**Ubicación**: `/postman/coleccion.json`
-
----
-
-## 📋 Requisitos del sistema
-
-| Requisito | Versión mínima |
-|-----------|-----------------|
-| Node.js | 16.x |
-| npm | 7.x |
-| Python | 3.8+ |
-| Django | 4.0+ |
-| Git | 2.x |
-
----
-
-## 📊 Composición del código
-
-```
-Python   ███████░░░░░░░░ 53.5%
-CSS      ████░░░░░░░░░░░ 24.9%
-JavaScript ███░░░░░░░░░░░ 19.8%
-HTML     ░░░░░░░░░░░░░░░  1.8%
-```
-
----
-
-## 📖 Comandos útiles
+## Repositorios
 
 ### Backend
 
-```bash
-# Crear superuser
-python manage.py createsuperuser
-
-# Acceder a shell interactivo
-python manage.py shell
-
-# Ver migraciones
-python manage.py showmigrations
-
-# Crear nueva app
-python manage.py startapp nombre_app
+```text
+https://github.com/sebastianrubio-cpu/BackEnd-aplicacion-web-full-stack-UISEK
 ```
 
 ### Frontend
 
-```bash
-# Compilar para producción
-npm run build
-
-# Preview de build
-npm run preview
-
-# Linting
-npm run lint
+```text
+https://github.com/albertoandrade-gif/FronteEnd-aplicacion-web-full-stack-UISEK
 ```
 
 ---
 
-## 🎓 Conceptos aplicados
+## Tecnologías utilizadas
 
-- ✅ Arquitectura REST
-- ✅ Principios SOLID
-- ✅ MVC Pattern (Backend)
-- ✅ Component-Based Design (Frontend)
-- ✅ DRY (Don't Repeat Yourself)
-- ✅ Separación de responsabilidades
-- ✅ Versionado semántico
-- ✅ Documentación clara
-
----
-
-## 📧 Contacto & Contribuciones
-
-Este es un proyecto académico de la **Universidad Internacional SEK (UISEK)**.
-
-**Estudiantes**:
-- Nombre del estudiante 1
-- Nombre del estudiante 2
+- Python 3.12
+- Django
+- Django REST Framework
+- OAuth 2.0
+- django-cors-headers
+- SQLite
+- Pillow
+- Git y GitHub
+- Postman
 
 ---
 
-## 📄 Licencia
+## Arquitectura del sistema
 
+```text
+Usuario
+  ↓
+Frontend React + Material UI
+  ↓
+Axios y peticiones HTTP
+  ↓
+Django REST Framework
+  ↓
+OAuth 2.0 y permisos
+  ↓
+SQLite y archivos multimedia
 ```
-© 2024 Proyecto desarrollado con fines académicos
-Universidad Internacional SEK (UISEK)
-Asignatura: Desarrollo Web
+
+El backend no genera las páginas visuales de la aplicación. Su función es recibir peticiones, procesar datos y devolver respuestas en formato JSON.
+
+---
+
+## Modelos
+
+### Director
+
+Campos principales:
+
+- `nombre`
+- `fecha_nacimiento`
+- `premios_ganados`
+- `biografia`
+- `foto`
+
+### Película
+
+Campos principales:
+
+- `nombre`
+- `duracion`
+- `fecha_lanzamiento`
+- `genero`
+- `poster`
+- `director`
+- `vendedores`
+
+### Vendedor
+
+Campos principales:
+
+- `nombre`
+- `tipo`
+
+---
+
+## Relaciones entre entidades
+
+```text
+Director 1 ───────── N Películas
+
+Películas N ───────── N Vendedores
 ```
 
-<div align="center">
+Un director puede estar relacionado con varias películas.
 
-**Hecho con ❤️ para Pablito**
+Cada película pertenece a un director.
 
-[⬆ Volver arriba](#examen-final---aplicación-web-full-stack-uisek)
+Una película puede distribuirse mediante varios vendedores y un vendedor puede distribuir varias películas.
 
-</div>
+---
+
+## Funcionalidades
+
+- Autenticación mediante OAuth 2.0.
+- Protección global de los endpoints.
+- CRUD completo de directores.
+- CRUD completo de películas.
+- CRUD completo de vendedores.
+- Relaciones uno a muchos y muchos a muchos.
+- Carga de pósteres de películas.
+- Carga de fotografías de directores.
+- Administración mediante Django Admin.
+- Comunicación con React mediante CORS.
+- Pruebas de API mediante Postman.
+
+---
+
+## Estructura principal
+
+```text
+BackEnd-aplicacion-web-full-stack-UISEK/
+│
+├── backend/
+│   ├── settings.py
+│   ├── urls.py
+│   ├── asgi.py
+│   └── wsgi.py
+│
+├── catalog/
+│   ├── migrations/
+│   ├── models/
+│   ├── serializers/
+│   ├── views/
+│   ├── admin.py
+│   └── urls.py
+│
+├── postman/
+│   ├── Examen_Final_UISEK_API_Peliculas.postman_collection.json
+│   └── UISEK_Local_Entrega.postman_environment.json
+│
+├── manage.py
+├── requirements.txt
+├── README.md
+└── .gitignore
+```
+
+Las carpetas `venv`, `media` y el archivo `db.sqlite3` se mantienen únicamente de forma local y no se almacenan en GitHub.
+
+---
+
+## Requisitos
+
+- Python 3.12
+- pip
+- Git
+- Postman, opcional para pruebas
+- Node.js y npm para ejecutar el frontend
+
+---
+
+## Instalación
+
+### 1. Clonar el repositorio
+
+```powershell
+git clone https://github.com/sebastianrubio-cpu/BackEnd-aplicacion-web-full-stack-UISEK.git
+```
+
+Entrar al proyecto:
+
+```powershell
+cd BackEnd-aplicacion-web-full-stack-UISEK
+```
+
+### 2. Crear el entorno virtual
+
+```powershell
+py -3.12 -m venv venv
+```
+
+### 3. Activar el entorno virtual
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+En caso de que PowerShell bloquee la activación:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\venv\Scripts\Activate.ps1
+```
+
+También se pueden ejecutar los comandos directamente con:
+
+```powershell
+.\venv\Scripts\python.exe
+```
+
+### 4. Instalar dependencias
+
+```powershell
+.\venv\Scripts\python.exe -m pip install --upgrade pip
+.\venv\Scripts\python.exe -m pip install -r requirements.txt
+```
+
+### 5. Aplicar migraciones
+
+```powershell
+.\venv\Scripts\python.exe manage.py migrate
+```
+
+### 6. Crear un superusuario
+
+```powershell
+.\venv\Scripts\python.exe manage.py createsuperuser
+```
+
+### 7. Ejecutar el backend
+
+```powershell
+.\venv\Scripts\python.exe manage.py runserver
+```
+
+El servidor estará disponible en:
+
+```text
+http://127.0.0.1:8000
+```
+
+El panel administrativo estará disponible en:
+
+```text
+http://127.0.0.1:8000/admin/
+```
+
+---
+
+## Configuración de OAuth 2.0
+
+Para crear una aplicación OAuth:
+
+1. Ejecutar el servidor de Django.
+2. Entrar a:
+
+```text
+http://127.0.0.1:8000/admin/
+```
+
+3. Iniciar sesión con el superusuario.
+4. Abrir la sección de aplicaciones OAuth.
+5. Crear una aplicación para el frontend.
+6. Asignar el usuario propietario.
+7. Configurar el tipo de cliente y el flujo de autenticación utilizado por el proyecto.
+8. Guardar el `client_id` únicamente en la configuración local.
+
+Las contraseñas, tokens y secretos no deben almacenarse en GitHub.
+
+---
+
+## Endpoint de autenticación
+
+### Obtener token OAuth
+
+```text
+POST /api/v1/o/token/
+```
+
+Parámetros principales:
+
+```text
+grant_type=password
+username=USUARIO
+password=CONTRASEÑA
+client_id=CLIENT_ID
+scope=read write
+```
+
+Cuando el usuario se autentica correctamente, el servidor devuelve un token de acceso.
+
+Las peticiones protegidas deben incluir:
+
+```http
+Authorization: Bearer ACCESS_TOKEN
+```
+
+---
+
+## Endpoints de directores
+
+| Método | Endpoint | Descripción |
+|---|---|---|
+| GET | `/api/v1/catalog/directores/` | Listar directores |
+| POST | `/api/v1/catalog/directores/` | Crear un director |
+| GET | `/api/v1/catalog/directores/{id}/` | Consultar un director |
+| PUT | `/api/v1/catalog/directores/{id}/` | Actualizar completamente |
+| PATCH | `/api/v1/catalog/directores/{id}/` | Actualizar parcialmente |
+| DELETE | `/api/v1/catalog/directores/{id}/` | Eliminar un director |
+
+---
+
+## Endpoints de películas
+
+| Método | Endpoint | Descripción |
+|---|---|---|
+| GET | `/api/v1/catalog/peliculas/` | Listar películas |
+| POST | `/api/v1/catalog/peliculas/` | Crear una película |
+| GET | `/api/v1/catalog/peliculas/{id}/` | Consultar una película |
+| PUT | `/api/v1/catalog/peliculas/{id}/` | Actualizar completamente |
+| PATCH | `/api/v1/catalog/peliculas/{id}/` | Actualizar parcialmente |
+| DELETE | `/api/v1/catalog/peliculas/{id}/` | Eliminar una película |
+
+---
+
+## Endpoints de vendedores
+
+| Método | Endpoint | Descripción |
+|---|---|---|
+| GET | `/api/v1/catalog/vendedores/` | Listar vendedores |
+| POST | `/api/v1/catalog/vendedores/` | Crear un vendedor |
+| GET | `/api/v1/catalog/vendedores/{id}/` | Consultar un vendedor |
+| PUT | `/api/v1/catalog/vendedores/{id}/` | Actualizar completamente |
+| PATCH | `/api/v1/catalog/vendedores/{id}/` | Actualizar parcialmente |
+| DELETE | `/api/v1/catalog/vendedores/{id}/` | Eliminar un vendedor |
+
+---
+
+## Ejemplos de datos
+
+### Crear un director
+
+```json
+{
+  "nombre": "Christopher Nolan",
+  "fecha_nacimiento": "1970-07-30",
+  "premios_ganados": 12,
+  "biografia": "Director, guionista y productor de cine."
+}
+```
+
+### Crear un vendedor
+
+```json
+{
+  "nombre": "Netflix",
+  "tipo": "NETFLIX"
+}
+```
+
+### Crear una película
+
+```json
+{
+  "nombre": "Inception",
+  "duracion": 148,
+  "fecha_lanzamiento": "2010-07-16",
+  "genero": "CIENCIA_FICCION",
+  "director": 1,
+  "vendedores": [
+    1
+  ]
+}
+```
+
+Para enviar imágenes, la petición debe utilizar `multipart/form-data`.
+
+Los nombres de los campos son:
+
+```text
+poster
+foto
+```
+
+---
+
+## Archivos multimedia
+
+Los archivos cargados localmente se almacenan en:
+
+```text
+media/
+├── posters/
+└── directores/
+```
+
+En desarrollo, Django permite acceder a ellos mediante:
+
+```text
+http://127.0.0.1:8000/media/
+```
+
+La carpeta `media/` está ignorada por Git porque contiene archivos subidos durante las pruebas locales.
+
+---
+
+## CORS
+
+El backend permite peticiones desde el servidor local de Vite:
+
+```text
+http://localhost:5173
+http://127.0.0.1:5173
+```
+
+Esto permite que el frontend React se comunique con Django aunque se ejecuten en puertos diferentes.
+
+---
+
+## Postman
+
+La carpeta:
+
+```text
+postman/
+```
+
+contiene:
+
+```text
+Examen_Final_UISEK_API_Peliculas.postman_collection.json
+UISEK_Local_Entrega.postman_environment.json
+```
+
+La colección incluye pruebas para:
+
+- obtener el token OAuth;
+- listar registros;
+- crear registros;
+- consultar registros;
+- actualizar registros;
+- eliminar registros.
+
+El entorno de entrega no contiene contraseñas, tokens ni secretos reales.
+
+Antes de ejecutar las peticiones deben completarse localmente las variables necesarias.
+
+---
+
+## Verificación del proyecto
+
+Comprobar las dependencias:
+
+```powershell
+.\venv\Scripts\python.exe -m pip check
+```
+
+Resultado esperado:
+
+```text
+No broken requirements found.
+```
+
+Comprobar Django:
+
+```powershell
+.\venv\Scripts\python.exe manage.py check
+```
+
+Resultado esperado:
+
+```text
+System check identified no issues (0 silenced).
+```
+
+Comprobar cambios de modelos pendientes:
+
+```powershell
+.\venv\Scripts\python.exe manage.py makemigrations --check --dry-run
+```
+
+Resultado esperado:
+
+```text
+No changes detected
+```
+
+---
+
+## Seguridad
+
+No deben subirse al repositorio:
+
+```text
+.env
+.env.local
+venv/
+db.sqlite3
+media/
+tokens OAuth
+contraseñas
+client_secret
+```
+
+La clave de Django se obtiene mediante:
+
+```text
+DJANGO_SECRET_KEY
+```
+
+Existe un valor predeterminado únicamente para el entorno académico local.
+
+Los endpoints de la API requieren autenticación mediante token OAuth.
+
+---
+
+## Ejecución conjunta
+
+### Terminal 1 — Backend
+
+```powershell
+cd "C:\Users\Luis Andrade\Documents\DesarrolloWeb\BackEnd-aplicacion-web-full-stack-UISEK"
+.\venv\Scripts\python.exe manage.py runserver
+```
+
+### Terminal 2 — Frontend
+
+```powershell
+cd "C:\Users\Luis Andrade\Documents\DesarrolloWeb\FrontEnd-aplicacion-web-full-stack-UISEK"
+npm.cmd run dev
+```
+
+Después abrir:
+
+```text
+http://localhost:5173
+```
+
+---
+
+## Estado del proyecto
+
+- Backend funcional.
+- OAuth 2.0 operativo.
+- CRUD completo.
+- Base de datos relacional.
+- Carga de imágenes habilitada.
+- Frontend integrado.
+- Colección de Postman incluida.
+- Configuración sensible excluida de Git.
+- Pruebas de Django completadas sin errores.
+
+---
+
+## Licencia
+
+Proyecto desarrollado con fines exclusivamente académicos para la Universidad Internacional SEK.
+
+© 2026 — Alberto Andrade y Sebastián Andrés Rubio Rivera
