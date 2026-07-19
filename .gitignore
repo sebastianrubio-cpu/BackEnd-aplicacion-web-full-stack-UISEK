@@ -1,5 +1,5 @@
 ﻿# ==========================================
-# Entorno de Desarrollo e IDEs
+# Entornos de desarrollo e IDE
 # ==========================================
 .vs/
 .vscode/
@@ -10,35 +10,40 @@
 *.sln
 *.swp
 
-# Archivos del Sistema Operativo
+# ==========================================
+# Archivos del sistema operativo
+# ==========================================
 Thumbs.db
-db.db
 Desktop.ini
 .DS_Store
 
 # ==========================================
-# Base de Datos y Seguridad (CRÍTICO)
+# Variables de entorno y seguridad
 # ==========================================
-# Ignorar archivo de variables de entorno
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*
+!.env.example
 
-# Ignorar la base de datos SQLite local
+# ==========================================
+# Base de datos local
+# ==========================================
 *.sqlite3
+*.sqlite3-journal
 db.sqlite3
+db.sqlite3-journal
 
 # ==========================================
-# Python & Django (Backend)
+# Python
 # ==========================================
-# Compilados de Python
+__pycache__/
 **/__pycache__/
 *.py[cod]
 *$py.class
+*.so
 
+# ==========================================
 # Entornos virtuales
+# ==========================================
 venv/
 .venv/
 env/
@@ -46,31 +51,31 @@ ENV/
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Archivos estáticos y Media subidos por usuarios en desarrollo
+# ==========================================
+# Django: archivos generados
+# ==========================================
 /media/
 /staticfiles/
 /static/collected/
 
 # ==========================================
-# Node & React (Frontend)
+# Pruebas, cobertura y caché
 # ==========================================
-# Dependencias de Node
-node_modules/
-jspm_packages/
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.cache/
 
-# Carpetas de compilación
-dist/
+# ==========================================
+# Logs
+# ==========================================
+*.log
+logs/
+
+# ==========================================
+# Empaquetado de Python
+# ==========================================
 build/
-out/
-
-# Logs de error de npm/yarn
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-
-# Archivos de caché de herramientas de frontend
-.eslintcache
-.parcel-cache
-.turbo/
-.vercel/
+dist/
+*.egg-info/
