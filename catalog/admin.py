@@ -20,4 +20,4 @@ class PeliculaAdmin(admin.ModelAdmin):
     list_display = ('id', 'nombre', 'duracion', 'fecha_lanzamiento', 'director')
     search_fields = ('nombre', 'director__nombre')
     list_filter = ('director', 'vendedores')
-    filter_horizontal = ('vendedores',)  # Facilita la asignación de relación Many-to-Many en el panel
+    filter_horizontal = ('vendedores',)  

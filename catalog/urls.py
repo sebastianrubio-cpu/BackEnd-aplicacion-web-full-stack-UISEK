@@ -5,7 +5,6 @@ from catalog.views.director_view import DirectorViewSet
 from catalog.views.vendedor_view import VendedorViewSet
 from catalog.views.pelicula_view import PeliculaViewSet
 
-# Registramos las vistas en el Router
 router = DefaultRouter()
 router.register(r"directores", DirectorViewSet, basename="director")
 router.register(r"vendedores", VendedorViewSet, basename="vendedor")
