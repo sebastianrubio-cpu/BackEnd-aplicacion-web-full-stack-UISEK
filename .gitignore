@@ -24,7 +24,6 @@ Desktop.ini
 .env.*
 !.env.example
 
-<<<<<<< HEAD
 # ==========================================
 # Base de datos local
 # ==========================================
@@ -32,11 +31,6 @@ Desktop.ini
 *.sqlite3-journal
 db.sqlite3
 db.sqlite3-journal
-=======
-# Ignorar la base de datos SQLite local
-#*.sqlite3
-#db.sqlite3
->>>>>>> BackEnd-URLs_and_Bugs
 
 # ==========================================
 # Python

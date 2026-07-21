@@ -200,10 +200,14 @@ MEDIA_ROOT = BASE_DIR / "media"
 # CORS
 # =========================================================
 
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "http://localhost:5174",
+    "http://127.0.0.1:5174",
 ]
+CORS_ALLOW_CREDENTIALS = True
 
 
 # =========================================================
@@ -211,14 +215,9 @@ CORS_ALLOWED_ORIGINS = [
 # =========================================================
 
 OAUTH2_PROVIDER = {
-    # Duración del token de acceso en segundos.
-    # 36000 segundos equivalen a 10 horas.
     "ACCESS_TOKEN_EXPIRE_SECONDS": 36000,
-
-    # Permite autenticación del cliente OAuth.
     "CLIENT_ID_HTTP_BASIC_AUTH": True,
-
-    # Permisos disponibles para la aplicación.
+    "ALLOWED_REDIRECT_URI_SCHEMES": ["http", "https"],
     "SCOPES": {
         "read": "Acceso de lectura a los datos del catálogo",
         "write": "Acceso de escritura para modificar el catálogo",
