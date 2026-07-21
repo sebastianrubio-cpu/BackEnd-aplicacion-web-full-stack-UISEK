@@ -15,7 +15,7 @@ class RegistroSerializer(serializers.ModelSerializer):
         fields = ['username', 'email', 'password']
 
     def create(self, validated_data):
-        # Es imperativo usar create_user para que la contraseña se guarde con Hash
+        
         user = User.objects.create_user(
             username=validated_data['username'],
             email=validated_data.get('email', ''),

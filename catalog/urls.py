@@ -5,7 +5,6 @@ from catalog.views import pelicula_view, director_view, vendedor_view
 from catalog.views import pelicula_view, director_view, vendedor_view, user_view
 
 router = DefaultRouter()
-
 # Registro de los ViewSets asociados a cada uno los 3 modelos
 router.register(r'peliculas', pelicula_view.PeliculaViewSet, basename='pelicula')
 router.register(r'directores', director_view.DirectorViewSet, basename='director')

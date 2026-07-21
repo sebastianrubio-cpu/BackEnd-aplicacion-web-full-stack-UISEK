@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from catalog.views.auth_view import CustomTokenView  # <- Debe coincidir con el archivo anterior
+from catalog.views.auth_view import CustomTokenView 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
